@@ -385,6 +385,9 @@ SELECT foo();
                                 </p>
                                 <p>
                                     <i>All comment information functions</i>
+                                </p><p/>
+                                <p>
+                                    <i>All  transaction ids and snapshots</i>
                                 </p>
                             </entry>
                             <entry colname="col4"/>
