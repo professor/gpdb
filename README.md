@@ -40,7 +40,6 @@ to the segments, and collects the results.
   * psutil
   * lockfile (>= 0.9.1)
   * paramiko
-  * setuptools
   * epydoc
 
   If necessary, upgrade modules using "pip install --upgrade".

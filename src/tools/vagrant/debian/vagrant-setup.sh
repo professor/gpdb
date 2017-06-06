@@ -8,7 +8,7 @@ sudo apt-get -y install docker-engine build-essential libreadline6 \
 libreadline6-dev zlib1g-dev bison flex git-core libcurl4-openssl-dev \
 python-dev libxml2-dev pkg-config vim libbz2-dev  python-pip \
 libapr1-dev libevent-dev libyaml-dev libperl-dev libffi-dev \
-python-setuptools-whl libssl-dev
+libssl-dev
 
 echo locales locales/locales_to_be_generated multiselect     de_DE ISO-8859-1, de_DE ISO-8859-15, de_DE.UTF-8 UTF-8, de_DE@euro ISO-8859-15, en_GB ISO-8859-1, en_GB ISO-8859-15, en_GB.ISO-8859-15 ISO-8859-15, en_GB.UTF-8 UTF-8, en_US ISO-8859-1, en_US ISO-8859-15, en_US.ISO-8859-15 ISO-8859-15, en_US.UTF-8 UTF-8 | debconf-set-selections
 echo locales locales/default_environment_locale      select  en_US.UTF-8 | debconf-set-selections
@@ -21,7 +21,6 @@ pip install --upgrade pip
 pip install cffi --upgrade
 pip install lockfile
 pip install paramiko --upgrade
-pip install setuptools --upgrade
 pip install epydoc
 pip install --pre psutil
 pip install cryptography --upgrade
