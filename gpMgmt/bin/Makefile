@@ -83,6 +83,10 @@ PARAMIKO_VERSION=1.18.4
 PARAMIKO_DIR=paramiko-$(PARAMIKO_VERSION)
 paramiko:
 	@echo "--- paramiko"
+	@echo "PATH"
+	@echo $(PATH)
+	@echo "which pip"
+	@echo which pip
 	@echo "PYLIB_SRC_EXT"
 	@echo $(PYLIB_SRC_EXT)
 	@echo "PYLIB_DIR"
@@ -90,7 +94,6 @@ paramiko:
 #	cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(PARAMIKO_DIR).tar.gz
 #	cd $(PYLIB_SRC_EXT)/$(PARAMIKO_DIR)/ && python setup.py build
 #	cp -r $(PYLIB_SRC_EXT)/$(PARAMIKO_DIR)/build/lib*/paramiko $(PYLIB_DIR)/
-	@echo "hi"
 	@echo "cd $(PYLIB_SRC_EXT)/ && pip install paramiko-1.18.1-py2.py3-none-any.whl -t $(PYLIB_DIR)/"
 	cd $(PYLIB_SRC_EXT)/ && pip install paramiko-1.18.1-py2.py3-none-any.whl -t $(PYLIB_DIR)/
 
