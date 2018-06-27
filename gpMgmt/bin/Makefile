@@ -90,7 +90,8 @@ paramiko:
 #	cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(PARAMIKO_DIR).tar.gz
 #	cd $(PYLIB_SRC_EXT)/$(PARAMIKO_DIR)/ && python setup.py build
 #	cp -r $(PYLIB_SRC_EXT)/$(PARAMIKO_DIR)/build/lib*/paramiko $(PYLIB_DIR)/
-    @echo cd $(PYLIB_SRC_EXT)/ && pip install paramiko-1.18.1-py2.py3-none-any.whl -t $(PYLIB_DIR)/
+	@echo "hi"
+	@echo "cd $(PYLIB_SRC_EXT)/ && pip install paramiko-1.18.1-py2.py3-none-any.whl -t $(PYLIB_DIR)/"
 	cd $(PYLIB_SRC_EXT)/ && pip install paramiko-1.18.1-py2.py3-none-any.whl -t $(PYLIB_DIR)/
 
 #
@@ -107,7 +108,7 @@ ecdsa:
 #	cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(ECDSA_DIR).tar.gz
 #	cd $(PYLIB_SRC_EXT)/$(ECDSA_DIR)/ && python setup.py build
 #	cp -r $(PYLIB_SRC_EXT)/$(ECDSA_DIR)/build/lib*/ecdsa $(PYLIB_DIR)/
-    @echo cd $(PYLIB_SRC_EXT)/ && pip install ecdsa-0.13-py2.py3-none-any.whl -t $(PYLIB_DIR)/
+	@echo cd $(PYLIB_SRC_EXT)/ && pip install ecdsa-0.13-py2.py3-none-any.whl -t $(PYLIB_DIR)/
 	cd $(PYLIB_SRC_EXT)/ && pip install ecdsa-0.13-py2.py3-none-any.whl -t $(PYLIB_DIR)/
 
 #
