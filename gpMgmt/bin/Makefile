@@ -94,9 +94,14 @@ ECDSA_VERSION=0.13
 ECDSA_DIR=ecdsa-$(ECDSA_VERSION)
 ecdsa:
 	@echo "--- ecdsa"
-	cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(ECDSA_DIR).tar.gz
-	cd $(PYLIB_SRC_EXT)/$(ECDSA_DIR)/ && python setup.py build
-	cp -r $(PYLIB_SRC_EXT)/$(ECDSA_DIR)/build/lib*/ecdsa $(PYLIB_DIR)/
+	@echo "PYLIB_SRC_EXT"
+	@echo $(PYLIB_SRC_EXT)
+	@echo "PYLIB_DIR"
+	@echo $(PYLIB_DIR)
+#	cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(ECDSA_DIR).tar.gz
+#	cd $(PYLIB_SRC_EXT)/$(ECDSA_DIR)/ && python setup.py build
+#	cp -r $(PYLIB_SRC_EXT)/$(ECDSA_DIR)/build/lib*/ecdsa $(PYLIB_DIR)/
+	cd $(PYLIB_SRC_EXT)/ && pip install ecdsa-0.13-py2.py3-none-any.whl
 
 #
 # LOCKFILE
