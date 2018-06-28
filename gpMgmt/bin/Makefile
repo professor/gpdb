@@ -32,7 +32,8 @@ core: pygresql subprocess32
 	python gpconfig_modules/parse_guc_metadata.py $(prefix)
 
 ifneq "$(wildcard $(CURDIR)/pythonSrc/ext/*.tar.gz)" ""
-install: core lockfile paramiko ecdsa pycrypto stream psutil
+install: paramiko
+#install: core lockfile paramiko ecdsa pycrypto stream psutil
 else
 install: core stream
 endif
