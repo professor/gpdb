@@ -86,8 +86,12 @@ paramiko:
 	@echo "--- paramiko"
 	@echo "PATH"
 	@echo $(PATH)
-	@echo "which pip"
-	@echo which pip
+	@echo "PYTHONSRC_INSTALL_PYTHON_PATH"
+	@echo $(PYTHONSRC_INSTALL_PYTHON_PATH)
+	@echo "PYTHONPATH"
+	@echo $(PYTHONPATH)
+	@echo "PYTHONSRC_INSTALL_SITE"
+	@echo $(PYTHONSRC_INSTALL_SITE)
 	@echo "pip version"
 	@echo /usr/local/bin/pip --version
 	@echo "PYLIB_SRC_EXT"
