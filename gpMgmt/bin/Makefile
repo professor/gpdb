@@ -85,6 +85,7 @@ PARAMIKO_DIR=paramiko-$(PARAMIKO_VERSION)
 paramiko:
 	@echo "--- paramiko"
 	@echo "ENV"
+	@echo $(env)
 	env
 	@echo "PATH"
 	@echo $(PATH)
