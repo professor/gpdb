@@ -105,7 +105,7 @@ paramiko:
 #	cd $(PYLIB_SRC_EXT)/$(PARAMIKO_DIR)/ && python setup.py build
 #	cp -r $(PYLIB_SRC_EXT)/$(PARAMIKO_DIR)/build/lib*/paramiko $(PYLIB_DIR)/
 #	@echo "cd $(PYLIB_SRC_EXT)/ && pip install paramiko-1.18.1-py2.py3-none-any.whl -t $(PYLIB_DIR)/"
-	python pip-10.0.1-py2.py3-none-any.whl/pip install --no-index pip-10.0.1-py2.py3-none-any.whl
+	cd $(PYLIB_SRC_EXT)/ && python pip-10.0.1-py2.py3-none-any.whl/pip install --no-index pip-10.0.1-py2.py3-none-any.whl
 	cd $(PYLIB_SRC_EXT)/ && /usr/local/bin/pip install paramiko-1.18.1-py2.py3-none-any.whl -t $(PYLIB_DIR)/
 #	/usr/local/bin/pip list
 	@echo "--- paramiko DONE"
