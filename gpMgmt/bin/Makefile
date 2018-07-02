@@ -105,8 +105,14 @@ paramiko:
 #	cd $(PYLIB_SRC_EXT)/$(PARAMIKO_DIR)/ && python setup.py build
 #	cp -r $(PYLIB_SRC_EXT)/$(PARAMIKO_DIR)/build/lib*/paramiko $(PYLIB_DIR)/
 #	@echo "cd $(PYLIB_SRC_EXT)/ && pip install paramiko-1.18.1-py2.py3-none-any.whl -t $(PYLIB_DIR)/"
+	#install pip and setuptools
 	cd $(PYLIB_SRC_EXT)/ && python pip-10.0.1-py2.py3-none-any.whl/pip install --no-index pip-10.0.1-py2.py3-none-any.whl
-	cd $(PYLIB_SRC_EXT)/ && /usr/local/bin/pip install paramiko-1.18.1-py2.py3-none-any.whl -t $(PYLIB_DIR)/
+	cd $(PYLIB_SRC_EXT)/ && pip install setuptools-36.6.0-py2.py3-none-any.whl
+
+	#install pycrypto, ecdsa, paramiko
+	cd $(PYLIB_SRC_EXT)/ && pip install pycrypto-2.6.1.tar.gz -t $(PYLIB_DIR)/
+	cd $(PYLIB_SRC_EXT)/ && pip install ecdsa-0.13-py2.py3-none-any.whl -t $(PYLIB_DIR)/
+	cd $(PYLIB_SRC_EXT)/ && pip install paramiko-1.18.1-py2.py3-none-any.whl -t $(PYLIB_DIR)/
 #	/usr/local/bin/pip list
 	@echo "--- paramiko DONE"
 
