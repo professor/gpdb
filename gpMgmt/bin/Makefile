@@ -32,7 +32,7 @@ core: pygresql subprocess32
 	python gpconfig_modules/parse_guc_metadata.py $(prefix)
 
 ifneq "$(wildcard $(CURDIR)/pythonSrc/ext/*.tar.gz)" ""
-install: core lockfile paramiko ecdsa pycrypto stream psutil
+install: core lockfile paramiko pycrypto stream psutil
 else
 install: core stream
 endif
@@ -109,29 +109,30 @@ paramiko:
 	cd $(PYLIB_SRC_EXT)/ && pip install setuptools-36.6.0-py2.py3-none-any.whl
 
 	#install pycrypto, ecdsa, paramiko
-	cd $(PYLIB_SRC_EXT)/ && pip install pycrypto-2.6.1.tar.gz -t $(PYLIB_DIR)/
-	cd $(PYLIB_SRC_EXT)/ && pip install ecdsa-0.13-py2.py3-none-any.whl -t $(PYLIB_DIR)/
-	cd $(PYLIB_SRC_EXT)/ && pip install paramiko-1.18.1-py2.py3-none-any.whl -t $(PYLIB_DIR)/
+	# --no-deps required, otherwise install dependencies from internet instead of from PYLIB_SRC_EXT
+	cd $(PYLIB_SRC_EXT)/ && pip install --no-deps pycrypto-2.6.1.tar.gz -t $(PYLIB_DIR)/
+	cd $(PYLIB_SRC_EXT)/ && pip install --no-deps ecdsa-0.13-py2.py3-none-any.whl -t $(PYLIB_DIR)/
+	cd $(PYLIB_SRC_EXT)/ && pip install --no-deps paramiko-1.18.1-py2.py3-none-any.whl -t $(PYLIB_DIR)/
 #	/usr/local/bin/pip list
 	@echo "--- paramiko DONE"
 
 #
 # ecdsa
 #
-ECDSA_VERSION=0.13
-ECDSA_DIR=ecdsa-$(ECDSA_VERSION)
-ecdsa:
-	@echo "--- ecdsa"
-	@echo "PYLIB_SRC_EXT"
-	@echo $(PYLIB_SRC_EXT)
-	@echo "PYLIB_DIR"
-	@echo $(PYLIB_DIR)
+# ECDSA_VERSION=0.13
+# ECDSA_DIR=ecdsa-$(ECDSA_VERSION)
+#ecdsa:
+#	@echo "--- ecdsa"
+#	@echo "PYLIB_SRC_EXT"
+#	@echo $(PYLIB_SRC_EXT)
+#	@echo "PYLIB_DIR"
+#	@echo $(PYLIB_DIR)
 #	cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(ECDSA_DIR).tar.gz
 #	cd $(PYLIB_SRC_EXT)/$(ECDSA_DIR)/ && python setup.py build
 #	cp -r $(PYLIB_SRC_EXT)/$(ECDSA_DIR)/build/lib*/ecdsa $(PYLIB_DIR)/
-	@echo "cd $(PYLIB_SRC_EXT)/ && pip install ecdsa-0.13-py2.py3-none-any.whl -t $(PYLIB_DIR)/"
-	cd $(PYLIB_SRC_EXT)/ && pip install ecdsa-0.13-py2.py3-none-any.whl -t $(PYLIB_DIR)/
-	@echo "--- ecdsa DONE"
+#	@echo "cd $(PYLIB_SRC_EXT)/ && pip install ecdsa-0.13-py2.py3-none-any.whl -t $(PYLIB_DIR)/"
+#	cd $(PYLIB_SRC_EXT)/ && pip install ecdsa-0.13-py2.py3-none-any.whl -t $(PYLIB_DIR)/
+#	@echo "--- ecdsa DONE"
 
 #
 # LOCKFILE
@@ -168,9 +169,10 @@ PYCRYPTO_DIR=pycrypto-$(PYCRYPTO_VERSION)
 pycrypto:
 	@echo "--- pycrypto"
 ifeq "$(findstring $(BLD_ARCH),aix7_ppc_64 )" ""
-	cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(PYCRYPTO_DIR).tar.gz
-	cd $(PYLIB_SRC_EXT)/$(PYCRYPTO_DIR)/ && CC="$(CC)" python setup.py build
-	cp -r $(PYLIB_SRC_EXT)/$(PYCRYPTO_DIR)/build/lib.*/Crypto $(PYLIB_DIR)
+#	cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(PYCRYPTO_DIR).tar.gz
+#	cd $(PYLIB_SRC_EXT)/$(PYCRYPTO_DIR)/ && CC="$(CC)" python setup.py build
+#	cp -r $(PYLIB_SRC_EXT)/$(PYCRYPTO_DIR)/build/lib.*/Crypto $(PYLIB_DIR)
+	cd $(PYLIB_SRC_EXT)/ && pip install --no-deps pycrypto-2.6.1.tar.gz -t $(PYLIB_DIR)/
 endif
 
 #
@@ -199,7 +201,6 @@ ifeq "$(findstring $(BLD_ARCH),aix7_ppc_64 )" ""
 	cd $(PYLIB_SRC_EXT)/$(PSUTIL_DIR)/ && CC="$(CC)" python setup.py build
 	cp -r $(PYLIB_SRC_EXT)/$(PSUTIL_DIR)/build/lib.*/psutil $(PYLIB_DIR)
 endif
-	pip todd
 	@echo "--- psutil DONE"
 
 #
