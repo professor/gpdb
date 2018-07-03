@@ -32,7 +32,7 @@ core: pygresql subprocess32
 	python gpconfig_modules/parse_guc_metadata.py $(prefix)
 
 ifneq "$(wildcard $(CURDIR)/pythonSrc/ext/*.tar.gz)" ""
-install: core lockfile paramiko pycrypto stream psutil
+install: core lockfile python-libraries stream psutil
 else
 install: core stream
 endif
@@ -76,12 +76,7 @@ pygresql:
 	fi
 	touch $(PYLIB_DIR)/__init__.py
 
-#
-# PARAMIKO
-#
-PARAMIKO_VERSION=1.18.4
-PARAMIKO_DIR=paramiko-$(PARAMIKO_VERSION)
-paramiko:
+python-libraries:
 	@echo "--- paramiko"
 	@echo "ENV"
 	@echo $(env)
@@ -110,7 +105,9 @@ paramiko:
 
 	#install pycrypto, ecdsa, paramiko
 	# --no-deps required, otherwise install dependencies from internet instead of from PYLIB_SRC_EXT
+ifeq "$(findstring $(BLD_ARCH),aix7_ppc_64 )" ""
 	cd $(PYLIB_SRC_EXT)/ && pip install --no-deps pycrypto-2.6.1.tar.gz -t $(PYLIB_DIR)/
+endif
 	cd $(PYLIB_SRC_EXT)/ && pip install --no-deps ecdsa-0.13-py2.py3-none-any.whl -t $(PYLIB_DIR)/
 	cd $(PYLIB_SRC_EXT)/ && pip install --no-deps paramiko-1.18.1-py2.py3-none-any.whl -t $(PYLIB_DIR)/
 #	/usr/local/bin/pip list
@@ -163,17 +160,17 @@ subprocess32:
 #
 # PYCRYPTO
 #
-PYCRYPTO_VERSION=2.0.1
-PYCRYPTO_DIR=pycrypto-$(PYCRYPTO_VERSION)
-
-pycrypto:
-	@echo "--- pycrypto"
-ifeq "$(findstring $(BLD_ARCH),aix7_ppc_64 )" ""
-#	cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(PYCRYPTO_DIR).tar.gz
-#	cd $(PYLIB_SRC_EXT)/$(PYCRYPTO_DIR)/ && CC="$(CC)" python setup.py build
-#	cp -r $(PYLIB_SRC_EXT)/$(PYCRYPTO_DIR)/build/lib.*/Crypto $(PYLIB_DIR)
-	cd $(PYLIB_SRC_EXT)/ && pip install --no-deps pycrypto-2.6.1.tar.gz -t $(PYLIB_DIR)/
-endif
+#PYCRYPTO_VERSION=2.0.1
+#PYCRYPTO_DIR=pycrypto-$(PYCRYPTO_VERSION)
+#
+#pycrypto:
+#	@echo "--- pycrypto"
+#ifeq "$(findstring $(BLD_ARCH),aix7_ppc_64 )" ""
+##	cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(PYCRYPTO_DIR).tar.gz
+##	cd $(PYLIB_SRC_EXT)/$(PYCRYPTO_DIR)/ && CC="$(CC)" python setup.py build
+##	cp -r $(PYLIB_SRC_EXT)/$(PYCRYPTO_DIR)/build/lib.*/Crypto $(PYLIB_DIR)
+#	cd $(PYLIB_SRC_EXT)/ && pip install --no-deps pycrypto-2.6.1.tar.gz -t $(PYLIB_DIR)/
+#endif
 
 #
 # PSI
@@ -316,8 +313,8 @@ installcheck:
 
 clean distclean:
 	rm -rf $(PYLIB_SRC_EXT)/$(LOCKFILE_DIR)
-	rm -rf $(PYLIB_SRC_EXT)/$(PARAMIKO_DIR)
-	rm -rf $(PYLIB_SRC_EXT)/$(PYCRYPTO_DIR)
+#	rm -rf $(PYLIB_SRC_EXT)/$(PARAMIKO_DIR)
+#	rm -rf $(PYLIB_SRC_EXT)/$(PYCRYPTO_DIR)
 	rm -rf $(PYLIB_SRC_EXT)/$(PYLINT_DIR)
 	rm -rf $(PYLIB_SRC_EXT)/$(LOGILAB_COMMON_DIR)
 	rm -rf $(PYLIB_SRC_EXT)/$(LOGILAB_ASTNG_DIR)
