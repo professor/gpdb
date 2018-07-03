@@ -165,7 +165,7 @@ ifeq "$(findstring $(BLD_ARCH),aix7_ppc_64 )" ""
 	cp -r $(PYLIB_SRC_EXT)/$(PSUTIL_DIR)/build/lib.*/psutil $(PYLIB_DIR)
 endif
 	pip todd
-	@echo "--- psutil"
+	@echo "--- psutil DONE"
 
 #
 # PYLINT
