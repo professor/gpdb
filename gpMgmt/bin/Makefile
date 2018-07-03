@@ -164,7 +164,7 @@ ifeq "$(findstring $(BLD_ARCH),aix7_ppc_64 )" ""
 	cd $(PYLIB_SRC_EXT)/$(PSUTIL_DIR)/ && CC="$(CC)" python setup.py build
 	cp -r $(PYLIB_SRC_EXT)/$(PSUTIL_DIR)/build/lib.*/psutil $(PYLIB_DIR)
 endif
-	exit
+	pip todd
 	@echo "--- psutil"
 
 #
