@@ -214,11 +214,11 @@ PYLINT_PYTHONPATH=$(PYLIB_DIR):$(PYLIB_SRC_EXT)/$(PYLINT_DIR)/build/lib/
 MOCK_VERSION=1.0.1
 MOCK_DIR=mock-$(MOCK_VERSION)
 BEHAVE_VERSION=1.2.4
-SETUP_TOOLS_VERSION=36.6.0
-PARSE_VERSION=1.5.3
+# SETUP_TOOLS_VERSION=36.6.0
+PARSE_VERSION=1.8.2
 ARG_PARSE_VERSION=1.2.1
 BEHAVE_DIR=behave-$(BEHAVE_VERSION)
-SETUP_TOOLS_DIR=setuptools-$(SETUP_TOOLS_VERSION)
+# SETUP_TOOLS_DIR=setuptools-$(SETUP_TOOLS_VERSION)
 PARSE_DIR=parse-$(PARSE_VERSION)
 ARG_PARSE_DIR=argparse-$(ARG_PARSE_VERSION)
 PYTHONSRC_INSTALL=$(PYLIB_SRC_EXT)/install
@@ -262,10 +262,10 @@ $(BEHAVE_BIN):
 	@echo "--- build $(BEHAVE_BIN)"
 	@mkdir -p $(PYTHONSRC_INSTALL_SITE)
 	@cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(BEHAVE_DIR).tar.gz
-	@cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(SETUP_TOOLS_DIR).tar.gz
+	@cd $(PYLIB_SRC_EXT)/ && pip install setuptools-36.6.0-py2.py3-none-any.whl -t $(PYTHONSRC_INSTALL)
 	@cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(PARSE_DIR).tar.gz
 	@cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(ARG_PARSE_DIR).tar.gz
-	@cd $(PYLIB_SRC_EXT)/$(SETUP_TOOLS_DIR)/ && PYTHONPATH=$(PYTHONSRC_INSTALL_PYTHON_PATH) python setup.py install --prefix $(PYTHONSRC_INSTALL)
+	# @cd $(PYLIB_SRC_EXT)/$(SETUP_TOOLS_DIR)/ && PYTHONPATH=$(PYTHONSRC_INSTALL_PYTHON_PATH) python setup.py install --prefix $(PYTHONSRC_INSTALL)
 	@cd $(PYLIB_SRC_EXT)/$(PARSE_DIR)/ && PYTHONPATH=$(PYTHONSRC_INSTALL_PYTHON_PATH) python setup.py install --prefix $(PYTHONSRC_INSTALL)
 	@cd $(PYLIB_SRC_EXT)/$(ARG_PARSE_DIR)/ && PYTHONPATH=$(PYTHONSRC_INSTALL_PYTHON_PATH) python setup.py install --prefix $(PYTHONSRC_INSTALL)
 	# We're forcing a change in the requirements since we're in python
