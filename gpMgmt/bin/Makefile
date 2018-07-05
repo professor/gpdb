@@ -222,7 +222,7 @@ BEHAVE_DIR=behave-$(BEHAVE_VERSION)
 PARSE_DIR=parse-$(PARSE_VERSION)
 ARG_PARSE_DIR=argparse-$(ARG_PARSE_VERSION)
 PYTHONSRC_INSTALL=$(PYLIB_SRC_EXT)/install
-PYTHON_VERSION=$(shell python -c "import sys; print ('%s.%s' % (sys.version_info[0:2]))")
+PYTHON_VERSION=2.7
 PYTHONSRC_INSTALL_SITE=$(PYLIB_SRC_EXT)/install/lib/python$(PYTHON_VERSION)/site-packages
 PYTHONSRC_INSTALL_PYTHON_PATH=$(PYTHONPATH):$(PYTHONSRC_INSTALL_SITE)
 BEHAVE_BIN=$(PYTHONSRC_INSTALL)/bin/behave
@@ -262,7 +262,7 @@ $(BEHAVE_BIN):
 	@echo "--- build $(BEHAVE_BIN)"
 	@mkdir -p $(PYTHONSRC_INSTALL_SITE)
 	@cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(BEHAVE_DIR).tar.gz
-	@cd $(PYLIB_SRC_EXT)/ && pip install setuptools-36.6.0-py2.py3-none-any.whl -t $(PYTHONSRC_INSTALL)
+	@cd $(PYLIB_SRC_EXT)/ && PYTHONPATH=$(PYTHONSRC_INSTALL_PYTHON_PATH) pip install setuptools-36.6.0-py2.py3-none-any.whl -t $(PYTHONSRC_INSTALL)
 	@cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(PARSE_DIR).tar.gz
 	@cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(ARG_PARSE_DIR).tar.gz
 	# @cd $(PYLIB_SRC_EXT)/$(SETUP_TOOLS_DIR)/ && PYTHONPATH=$(PYTHONSRC_INSTALL_PYTHON_PATH) python setup.py install --prefix $(PYTHONSRC_INSTALL)
