@@ -222,7 +222,7 @@ BEHAVE_DIR=behave-$(BEHAVE_VERSION)
 PARSE_DIR=parse-$(PARSE_VERSION)
 ARG_PARSE_DIR=argparse-$(ARG_PARSE_VERSION)
 PYTHONSRC_INSTALL=$(PYLIB_SRC_EXT)/install
-PYTHON_VERSION=2.7
+PYTHON_VERSION=$(shell python -c "import sys; print ('%s.%s' % (sys.version_info[0:2]))")
 PYTHONSRC_INSTALL_SITE=$(PYLIB_SRC_EXT)/install/lib/python$(PYTHON_VERSION)/site-packages
 PYTHONSRC_INSTALL_PYTHON_PATH=$(PYTHONPATH):$(PYTHONSRC_INSTALL_SITE)
 BEHAVE_BIN=$(PYTHONSRC_INSTALL)/bin/behave
@@ -259,21 +259,21 @@ $(MOCK_BIN):
 #
 
 $(BEHAVE_BIN):
-	@echo "--- build $(BEHAVE_BIN)"
-	@mkdir -p $(PYTHONSRC_INSTALL_SITE)
-	@cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(BEHAVE_DIR).tar.gz
-	@cd $(PYLIB_SRC_EXT)/ && PYTHONPATH=$(PYTHONSRC_INSTALL_PYTHON_PATH) pip install setuptools-36.6.0-py2.py3-none-any.whl -t $(PYTHONSRC_INSTALL)
-	@cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(PARSE_DIR).tar.gz
-	@cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(ARG_PARSE_DIR).tar.gz
+	echo "--- build $(BEHAVE_BIN)"
+	mkdir -p $(PYTHONSRC_INSTALL_SITE)
+	cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(BEHAVE_DIR).tar.gz
+	cd $(PYLIB_SRC_EXT)/ && PYTHONPATH=$(PYTHONSRC_INSTALL_PYTHON_PATH) pip install setuptools-36.6.0-py2.py3-none-any.whl -t $(PYTHONSRC_INSTALL)
+	cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(PARSE_DIR).tar.gz
+	cd $(PYLIB_SRC_EXT)/ && $(TAR) xzf $(ARG_PARSE_DIR).tar.gz
 	# @cd $(PYLIB_SRC_EXT)/$(SETUP_TOOLS_DIR)/ && PYTHONPATH=$(PYTHONSRC_INSTALL_PYTHON_PATH) python setup.py install --prefix $(PYTHONSRC_INSTALL)
-	@cd $(PYLIB_SRC_EXT)/$(PARSE_DIR)/ && PYTHONPATH=$(PYTHONSRC_INSTALL_PYTHON_PATH) python setup.py install --prefix $(PYTHONSRC_INSTALL)
-	@cd $(PYLIB_SRC_EXT)/$(ARG_PARSE_DIR)/ && PYTHONPATH=$(PYTHONSRC_INSTALL_PYTHON_PATH) python setup.py install --prefix $(PYTHONSRC_INSTALL)
+	cd $(PYLIB_SRC_EXT)/$(PARSE_DIR)/ && PYTHONPATH=$(PYTHONSRC_INSTALL_PYTHON_PATH) python setup.py install --prefix $(PYTHONSRC_INSTALL)
+	cd $(PYLIB_SRC_EXT)/$(ARG_PARSE_DIR)/ && PYTHONPATH=$(PYTHONSRC_INSTALL_PYTHON_PATH) python setup.py install --prefix $(PYTHONSRC_INSTALL)
 	# We're forcing a change in the requirements since we're in python
 	# 2.7.12. There's a new syntax in the python requirements for
 	# parse_type 0.4.2 which breaks if you're under 2.7.13
-	@cd $(PYLIB_SRC_EXT)/$(BEHAVE_DIR)/ && sed -i 's/parse_type>=0.3.4/parse_type==0.4.1/' setup.py \
+	cd $(PYLIB_SRC_EXT)/$(BEHAVE_DIR)/ && sed -i 's/parse_type>=0.3.4/parse_type==0.4.1/' setup.py \
 		&& PYTHONPATH=$(PYTHONSRC_INSTALL_PYTHON_PATH) python setup.py install --prefix $(PYTHONSRC_INSTALL)
-	@echo "--- behave done"
+	echo "--- behave done"
 
 PYTHON_FILES=`grep -l --exclude=Makefile --exclude=gplogfilter "/bin/env python" *`\
 			 `grep -l "/bin/env python" $(SRC)/../sbin/*`\
